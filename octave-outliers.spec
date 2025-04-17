@@ -1,27 +1,28 @@
-%define octpkg outliers
+%global octpkg outliers
 
-Summary:	Tests for outlier detection and p-value approximating routines with Octave
-Name:		octave-%{octpkg}
+%global commit 551e891a09a9cdbba83d293841cf4cf89a0a05a1
+
+Summary:	Grubbs, Dixon and Cochran tests for outlier detection and p-value approximating
+Name:		octave-outliers
 Version:	0.13.9
-Release:	1
-Source0:	http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+Release:	2
 License:	GPLv2+
 Group:		Sciences/Mathematics
-Url:		https://octave.sourceforge.io/%{octpkg}/
-BuildArch:	noarch
+Url:		https://packages.octave.org/outliers/
+Source0:	https://downloads.sourceforge.net/octave//outliers-%{version}.tar.gz
 
-BuildRequires:	octave-devel >= 2.9.9
+BuildRequires:  octave-devel >= 2.9.9
 
 Requires:	octave(api) = %{octave_api}
 
 Requires(post): octave
 Requires(postun): octave
 
-%description
-Grubbs, Dixon and Cochran tests for outlier detection and p-value
-approximating routines for Octave.
+BuildArch:	noarch
 
-This package is part of unmantained Octave-Forge collection.
+%description
+Grubbs, Dixon and Cochran tests for outlier detection and p-value 
+approximating routines.
 
 %files
 %license COPYING
@@ -32,10 +33,7 @@ This package is part of unmantained Octave-Forge collection.
 #---------------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n %{octpkg}
-
-# remove backup files
-#find . -name \*~ -delete
+%autosetup -p1 -n %{name}-%{commit}
 
 %build
 %octave_pkg_build
@@ -54,3 +52,4 @@ This package is part of unmantained Octave-Forge collection.
 
 %postun
 %octave_cmd pkg rebuild
+
